@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="Style.css" />
+     <!-- ICONS CDN -->
+     <link
+     rel="stylesheet"
+     href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+   />
+   <!-- GOOGLE FONTS (MONTSERAT) -->
+   <link
+     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+     rel="stylesheet"
+   />
+  </head>
+  <body>
+    <section class="container">
+      <div id="Switch_btn">
+        <!-- <div class="color_box"></div> -->
+        <div class="switch-container">
+          <input type="checkbox" id="switch" class="switch" />
+          <label for="switch" class="switch-label"></label>
+        </div>
+      </div>
+      <section class="search_bar">
+        <form class="container search_bar_container">
+          <div>
+            <select>
+                <option value="PHONE">PHONE</option>
+                
+              </select>    
+              <div class="search-container">
+                <input
+                  type="text"
+                  placeholder="Enter phone number"
+                  onkeyup="searchPhone()"
+                />
+              </div>
+          </div>
+          <button type="Submit" id="Searchbtn"><i class="uil uil-search"></i></button>
+        </form>
+        <!-- <ul class="number_list"> </ul> -->
+        <div class="number_list"></div>
+
+      </section>
+
+      <!--====================END OF SEARHC BUTTON=================== -->
+
+      <!-- Mood queries -->
+
+      </div>
+    </section>
+
+    <script>
+
+        // DARK MOOD FUNCTION
+        const toggleButton = document.getElementById('switch');
+const body = document.querySelector('body');
+
+toggleButton.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+  if (body.classList.contains('dark-mode')) {
+    toggleButton.textContent = 'NIGHT ';
+  } else {
+    toggleButton.textContent = 'DARK ';
+  }
+});
+
+
+      const data = [
+        {
+          phone: "03001234561",
+          cnic: "12345-6789012-3",
+          name: "Shaista Ibrar",
+        },
+        { phone: "03001234562", cnic: "12345-6789012-4", name: "John Doe" },
+        { phone: "03001234563", cnic: "12345-6789012-5", name: "Jane Doe" },
+        { phone: "03001234564", cnic: "12345-6789012-6", name: "Bob Smith" },
+        { phone: "03001234565", cnic: "12345-6789012-7", name: "Alice Smith" },
+      ];
+      function searchPhone() {
+  const input = document.querySelector('.search-container input');
+  const resultsContainer = document.querySelector('.number_list');
+  
+  // hide the results container if the input is empty
+  if (input.value === '') {
+    resultsContainer.style.display = 'none';
+    return;
+  } else {
+    resultsContainer.style.display = 'block';
+  }
+  
+  resultsContainer.innerHTML = '';
+  const filteredData = data.filter(item => item.phone.startsWith(input.value));
+  
+  if (filteredData.length > 0) {
+    filteredData.forEach(item => {
+      const result = document.createElement('li');
+      result.innerHTML = `${item.phone}<br>${item.cnic}<br>${item.name}`;
+      result.addEventListener('click', () => {
+        input.value = item.phone;
+      resultsContainer.style.display = 'none';
+
+        // resultsContainer.innerHTML = '';
+        
+      });
+      resultsContainer.appendChild(result);
+    });
+  } else {
+    resultsContainer.innerHTML = '<li>No results found</li>';
+  }
+}
+
+
+      </script>
+  </body>
+</html>
